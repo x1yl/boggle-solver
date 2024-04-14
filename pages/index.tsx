@@ -36,9 +36,32 @@ const IndexPage: React.FC = () => {
     setDarkMode(!darkMode);
   };
 
+  // Function to handle input change for the entire board
+  const handleBoardInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value.toUpperCase(); // Convert input to uppercase
+    const boardArray: string[] = inputValue.split('').filter(char => char !== ' ');
+    const newBoard: string[][] = [];
+  
+    // Populate the new board
+    for (let i = 0; i < 4; i++) {
+      newBoard.push(boardArray.slice(i * 4, (i + 1) * 4));
+    }
+  
+    // Update the board state
+    setBoard(newBoard);
+  };
+
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center ${darkMode ? 'dark' : ''}`}>
       <h1 className="text-3xl font-bold mb-4">Wordhunt Solver</h1>
+      {/* Input field for the entire board */}
+      <input
+        type="text"
+        placeholder="Enter the board (e.g., abcdefghijklmnop)"
+        className="mb-4 p-2"
+        onChange={handleBoardInputChange}
+      />
+      {/* Display the board */}
       <Board board={board} setBoard={setBoard} />
       <button
         onClick={solveBoggle}

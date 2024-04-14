@@ -32,6 +32,9 @@ body {
     rgb(var(--background-start-dark));
 }
 
+.dark .p-2{
+  color: black;
+}
 
 @layer utilities {
   .text-balance {
