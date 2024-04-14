@@ -60,7 +60,7 @@ const Board: React.FC<Props> = ({ board, setBoard }) => {
   };
 
   return (
-    <div className="grid grid-cols-4 gap-1" style={{ width: 'fit-content' }}>
+    <div className="grid grid-cols-4 gap-3" style={{ width: 'fit-content' }}>
       {board.map((row, rowIndex) => (
         row.map((cell, colIndex) => (
           <input
@@ -76,7 +76,7 @@ const Board: React.FC<Props> = ({ board, setBoard }) => {
             value={cell}
             onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
             onKeyDown={(e) => handleKeyDown(e, rowIndex, colIndex)}
-            className="w-8 h-8 text-center text-lg border border-gray-300 rounded-md text-black"
+            className="w-8 h-8 text-center text-lg border border-gray-300 rounded-md text-black bg-amber-50"
             style={{ letterSpacing: '-0.5px' }}
           />
         ))

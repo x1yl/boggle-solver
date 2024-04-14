@@ -1,10 +1,17 @@
 // pages/index.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Board from '../components/Board';
 
 const IndexPage: React.FC = () => {
   const [words, setWords] = useState<string[]>([]);
   const [board, setBoard] = useState<string[][]>([['', '', '', ''], ['', '', '', ''], ['', '', '', ''], ['', '', '', '']]);
+  const [darkMode, setDarkMode] = useState(false); // State for dark mode toggle
+
+  useEffect(() => {
+    // Check if the user prefers dark mode
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setDarkMode(prefersDarkMode);
+  }, []);
 
   const solveBoggle = async () => {
     try {
@@ -24,8 +31,13 @@ const IndexPage: React.FC = () => {
     }
   };
 
+  // Function to toggle dark mode
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
-    <div className="container mx-auto my-8">
+    <div className={`min-h-screen flex flex-col items-center justify-center ${darkMode ? 'dark' : ''}`}>
       <h1 className="text-3xl font-bold mb-4">Wordhunt Solver</h1>
       <Board board={board} setBoard={setBoard} />
       <button
@@ -41,6 +53,17 @@ const IndexPage: React.FC = () => {
             <li key={index}>{word}</li>
           ))}
         </ul>
+      </div>
+      <div className="fixed bottom-4 right-4">
+        <label className="switch">
+          <input
+            type="checkbox"
+            className="mr-2"
+            checked={darkMode}
+            onChange={toggleDarkMode}
+          />
+          <span className="slider round"></span>
+        </label>
       </div>
     </div>
   );
